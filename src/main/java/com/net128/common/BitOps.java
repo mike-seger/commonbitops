@@ -8,6 +8,14 @@ public interface BitOps {
     long rotateBitsRight(long value, int numOfBits, int offset);
     long rotateBitsLeft(long value, int numOfBits, int offset);
 
+    default long getMaxValue(int numOfBits) {
+        return (1 << numOfBits)-1;
+    }
+
+    default long getBinaryMaxValueForDecimals(int digits) {
+        return getMaxValue(getBitPrecisionOfDecimal(digits)-1);
+    }
+
     default int getBitPrecisionOfDecimal(int digits) {
         return (int)Math.ceil(Math.log(Math.pow(10, digits))/Math.log(2));
     }

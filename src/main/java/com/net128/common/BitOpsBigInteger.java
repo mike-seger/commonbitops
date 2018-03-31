@@ -1,6 +1,5 @@
 package com.net128.common;
 
-import static com.net128.common.BitOps.*;
 import java.math.BigInteger;
 import java.util.Arrays;
 
@@ -24,33 +23,13 @@ public class BitOpsBigInteger implements BitOps {
         return reverseBits(BigInteger.valueOf(value), numOfBits).longValue();
     }
     public BigInteger reverseBits(BigInteger value, int numOfBits) {
-       // int realNumOfBits=Math.min(numOfBits, value.bitLength());
-        int realNumOfBits=numOfBits;
         int offset=8-(numOfBits%8);
         value=getBitRange(value, 0, numOfBits);
-        String s0=value.toString(2);
         value=value.shiftLeft(offset);
-        String s1=value.toString(2);
         byte [] bytes=bigIntegerToBytes(value);
         byte [] revbytes=reverseByteArrayBits(bytes);
         value=bigIntegerFromBytes(revbytes);
-        String s2=value.toString(2);
         return getBitRange(value, 0, numOfBits);
-    }
-    public BigInteger reverseBitsx(BigInteger value, int numOfBits) {
-        value=getBitRange(value, 0, numOfBits);
-        int realNumOfBits=Math.min(numOfBits, value.bitLength());
-        String s;
-        s=value.toString(2);
-        value=value.shiftLeft(1);
-        //value.add(BigInteger.ONE);
-        s=value.toString(2);
-        byte [] bytes=value.toByteArray();
-        bytes=reverseByteArrayBits(bytes);
-        value=new BigInteger(bytes);
-        s=value.toString(2);
-        int pos=(8-((numOfBits+1)%8))%8;
-        return getBitRange(value.shiftLeft(numOfBits-realNumOfBits), pos, numOfBits);
     }
 
     public long rotateBits(long value, int numOfBits, int offset) {

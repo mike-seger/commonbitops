@@ -36,14 +36,27 @@ public class BitOpsCommonTest {
         String actual=paddedBinaryString(reverseByte);
         assertEquals(expected, actual);
     }
-
     private static Stream<Arguments> byteArrayProvider() {
         return Stream.of(
-            Arguments.of(new byte [] {1}),
-            Arguments.of(new byte [] {1, 2}),
-            Arguments.of(new byte [] {1, 2, 3}),
-            Arguments.of(new byte [] {1, 2, 3, 4})
+                Arguments.of(new byte [] {1}),
+                Arguments.of(new byte [] {1, 2}),
+                Arguments.of(new byte [] {1, 2, 3}),
+                Arguments.of(new byte [] {1, 2, 3, 4})
         );
+    }
+
+    @DisplayName("Should get binary max value for digits")
+    @ParameterizedTest(name = "{index} => bits={0}, result={1}")
+    @MethodSource("binaryMaxValueForDecimals")
+    public void shouldGetBinaryMaxValueForDecimals(int decimals, long result) {
+        assertEquals(result, bo.getBinaryMaxValueForDecimals(decimals));
+    }
+    private static Stream<Arguments> binaryMaxValueForDecimals() {
+        return Stream.of(
+            Arguments.of(1, 7L),
+            Arguments.of(3, 511L),
+            Arguments.of(8, 67108863L)
+         );
     }
 
     private static IntStream intStream(byte[] array) {
