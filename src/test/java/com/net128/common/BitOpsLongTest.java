@@ -7,4 +7,6 @@ public class BitOpsLongTest extends BitOpsTest {
     protected BitOps bo() {
         return bo;
     }
+
+
 }

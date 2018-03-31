@@ -12,16 +12,16 @@ public abstract class BitOpsTest {
     @DisplayName("Should set bit range")
     @ParameterizedTest(name = "{index} => binValue={0}, binRangeValue={1}, pos={2}, numBits={3}, result={4}")
     @CsvSource({
-            "1, 0, 0, 1, 0",
-            "1, 1, 0, 1, 1",
-            "1, 1, 1, 1, 11",
-            "1, 1, 3, 1, 1001",
-            "1, 11, 5, 2, 1100001",
-            "111111, 0, 2, 1, 111011",
-            "111111111111111111111111111111111111111111111111111111111111111, 0, 20, 5, 111111111111111111111111111111111111110000011111111111111111111",
-            "111111111111111111111111111111111111111111111111111111111111111, 10110, 20, 5, 111111111111111111111111111111111111111011011111111111111111111",
-            "111111, 0, 4, 2, 1111",
-            "1111111, 0, 4, 2, 1001111"
+        "1, 0, 0, 1, 0",
+        "1, 1, 0, 1, 1",
+        "1, 1, 1, 1, 11",
+        "1, 1, 3, 1, 1001",
+        "1, 11, 5, 2, 1100001",
+        "111111, 0, 2, 1, 111011",
+        "111111111111111111111111111111111111111111111111111111111111111, 0, 20, 5, 111111111111111111111111111111111111110000011111111111111111111",
+        "111111111111111111111111111111111111111111111111111111111111111, 10110, 20, 5, 111111111111111111111111111111111111111011011111111111111111111",
+        "111111, 0, 4, 2, 1111",
+        "1111111, 0, 4, 2, 1001111"
     })
     public void shouldSetBitRange(String binValue, String binRangeValue, int pos, int numBits, String result) {
         assertEquals(result,
@@ -64,7 +64,8 @@ public abstract class BitOpsTest {
     @DisplayName("Should reverse bits")
     @ParameterizedTest(name = "{index} => binValue={0}, numBits={1}, result={2}")
     @CsvSource({
-        "110111, 1, 1",
+        "100000010, 9, 10000001",
+        "100110111, 1, 1",
         "110111, 4, 1110",
         "110111, 6, 111011",
         "110111, 7, 1110110",
@@ -77,7 +78,7 @@ public abstract class BitOpsTest {
     })
     public void shouldReverseBits(String binValue, int numBits, String result) {
         assertEquals(result,
-            toBinary(new BitOpsLong().reverseBits(fromBinary(binValue), numBits)));
+            toBinary(bo().reverseBits(fromBinary(binValue), numBits)));
     }
 
     @DisplayName("Should rotate bits")
@@ -104,11 +105,11 @@ public abstract class BitOpsTest {
     @DisplayName("Should get bit precision of decimal")
     @ParameterizedTest(name = "{index} => digits={0}, result={1}")
     @CsvSource({
-            "1, 4",
-            "8, 27",
-            "9, 30",
-            "10, 34",
-            "19, 64"
+        "1, 4",
+        "8, 27",
+        "9, 30",
+        "10, 34",
+        "19, 64"
     })
     public void shouldGetBitPrecisionOfDecimal(int digits, int result) {
         assertEquals(result, bo().getBitPrecisionOfDecimal(digits));
